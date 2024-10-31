@@ -1,12 +1,107 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const giftBox = document.querySelector(".giftbox");
+  const merrywrap = document.getElementById("merrywrap");
+  const modal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  const closeModal = document.querySelector(".close");
+  const greetingCard = document.getElementById("greetingCard");
+
+  // รูปภาพที่ต้องการแสดง
+  const imagePaths = [
+    "images/1730391652961.jpg",
+    "images/1730391652907.jpeg",
+    "images/1730391652899.png",
+    "images/_storage_emulated_0_Android_data_com.miui.gallery_cache_SecurityShare_1730391652887.jpg",
+    "images/1730391652931.jpeg",
+    "images/1730391652915.jpeg",
+    "images/1730391652954.jpg",
+    "images/1730391652968.jpeg",
+    "images/1730391652990.jpeg",
+    "images/1730391653004.jpg",
+    "images/1730393580718.png",
+    "images/1730393999349.jpeg",
+    "images/1730393739354.jpg",
+    "images/1730393739342.jpeg",
+    "images/1730393739314.png",
+    "images/1730393739291.png",
+    "images/1730391653011.jpeg",
+  ];
+
+  giftBox.addEventListener("click", openGift);
+
+  function openGift() {
+    // สร้างลูกโป่งพร้อมภาพ
+    setTimeout(() => {
+      let index = 0;
+      const batchSize = 1;
+
+      const interval = setInterval(() => {
+        if (index < imagePaths.length) {
+          for (let i = 0; i < batchSize && index < imagePaths.length; i++, index++) {
+            createBalloon(imagePaths[index]);
+          }
+        } else {
+          clearInterval(interval); // หยุด interval เมื่อหมดรูป
+          showGreetingCard();
+        }
+      }, 1000); // ทุก 1 วินาที
+    }, 2000); // ตั้งเวลาเพื่อให้อนิเมชันกล่องเสร็จ (2 วินาที)
+  }
+
+  function createBalloon(imageSrc) {
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+
+    const image = document.createElement("img");
+    image.src = imageSrc;
+    image.classList.add("balloon-image");
+
+    balloon.appendChild(image);
+    document.body.appendChild(balloon);
+
+    // การสุ่มตำแหน่งและการเคลื่อนไหวของลูกโป่ง
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.animationDuration = 5 + Math.random() * 5 + "s";
+
+    // เมื่อการเคลื่อนไหวจบแล้ว ให้ลบลูกโป่งออก
+    balloon.addEventListener("animationend", () => {
+      balloon.remove();
+    });
+
+    // เพิ่ม event listener เพื่อแสดง modal เมื่อคลิกที่ภาพในลูกโป่ง
+    image.addEventListener("click", function () {
+      modal.style.display = "block";
+      modalImage.src = imageSrc; // ตั้งค่า src ของ modal เป็นภาพที่ถูกเลือก
+    });
+  }
+
+function showGreetingCard() {
+        greetingCard.style.display = "block"; // เปลี่ยนการแสดงผลให้เห็นการ์ด
+    }
+
+  // ปิด modal เมื่อคลิกที่ปุ่มปิด
+  closeModal.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  // ปิด modal เมื่อคลิกนอก modal
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+});
+
 const count = document.getElementById('count');
 const head = document.getElementById('head');
 const giftbox = document.getElementById('merrywrap');
 const canvasC = document.getElementById('c');
 
 const config = {
-  birthdate: 'Oct 11, 2024',
+  birthdate: ' 11, 2024',
   name: 'View'
 };
+
 
 function hideEverything() {
   head.style.display = 'none';
@@ -419,8 +514,17 @@ x = setInterval(function() {
 
     ctx.translate(-hw, -hh);
 
-    if (done) for (let l = 0; l < letters.length; ++l) letters[l].reset();
+    if (done) {
+      showGreetingMessage(); // เรียกใช้ฟังก์ชันแสดงการดุวยพร
+    }
   }
+
+  function showGreetingMessage() {
+    ctx.fillStyle = 'black'; // ตั้งค่าสีข้อความ
+    ctx.font = '30px Arial'; // กำหนดฟอนต์
+    ctx.textAlign = 'center'; // จัดตำแหน่งข้อความให้อยู่กลาง
+    ctx.fillText('สุขสันต์วันเกิด!', hw, hh + 50); // แสดงข้อความ "สุขสันต์วันเกิด!" ที่กลางหน้าจอ
+}
 
   for (let i = 0; i < opts.strings.length; ++i) {
     for (let j = 0; j < opts.strings[i].length; ++j) {
