@@ -245,5 +245,33 @@
   text-decoration: none;
   cursor: pointer;
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+#character {
+  position: fixed;
+  bottom: 20px; /* ตำแหน่งของตัวการ์ตูนใกล้ด้านล่างของหน้าจอ */
+  left: -50px; /* เริ่มจากนอกจอด้านซ้าย */
+  font-size: 3rem;
+  transition: transform 10s linear; /* เพิ่มความราบรื่นในการเคลื่อนที่ */
+}
+
+.character-move {
+  transform: translateX(100vw); /* เคลื่อนที่ไปขวาสุดของหน้าจอ */
+}

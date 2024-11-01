@@ -515,17 +515,27 @@ x = setInterval(function() {
     ctx.translate(-hw, -hh);
 
     if (done) {
-      showGreetingMessage(); // เรียกใช้ฟังก์ชันแสดงการดุวยพร
+      openEnvelope(); // เรียกใช้ฟังก์ชันแสดงการดวยพร
     }
   }
-
-  function showGreetingMessage() {
-    ctx.fillStyle = 'black'; // ตั้งค่าสีข้อความ
-    ctx.font = '30px Arial'; // กำหนดฟอนต์
-    ctx.textAlign = 'center'; // จัดตำแหน่งข้อความให้อยู่กลาง
-    ctx.fillText('สุขสันต์วันเกิด!', hw, hh + 50); // แสดงข้อความ "สุขสันต์วันเกิด!" ที่กลางหน้าจอ
-}
-
+  
+    // การเปิดฝาจดหมาย
+    function openEnvelope() {
+      const flap = document.getElementById('flap');
+      const greeting = document.getElementById('greeting');
+  
+      // แอนิเมชันเปิดฝา
+      flap.style.transform = 'rotateX(-180deg)';
+  
+      // แสดงข้อความคำอวยพรหลังจากเปิดฝา
+      setTimeout(() => {
+        greeting.style.display = 'block';
+      }, 1000); // หน่วงเวลา 1 วินาทีก่อนแสดงข้อความ
+    }
+  
+    // เริ่มแอนิเมชันการเปิดจดหมายเมื่อโหลดหน้า
+    
+  
   for (let i = 0; i < opts.strings.length; ++i) {
     for (let j = 0; j < opts.strings[i].length; ++j) {
       letters.push(
