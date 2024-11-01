@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
   giftBox.addEventListener("click", openGift);
 
   function openGift() {
+
+    giftBox.removeEventListener("click", openGift);
     // สร้างลูกโป่งพร้อมภาพ
     setTimeout(() => {
       let index = 0;
